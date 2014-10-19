@@ -1,6 +1,9 @@
 #How to run#
 
 # Requirements #
+
+You are not required to implement the Modify Information feature, the customers don’t have to choose a size and/or a color when they place a shoe item in the shopping cart.
+
 ##Technical Requirements##
 
 1. Code re-use and architecture
