@@ -1,6 +1,23 @@
 #How to run#
 
 # Requirements #
+##Technical Requirements##
+
+1. Code re-use and architecture
+
+2. SQL DDL/DML code 
+
+3. Error handling tested and demonstrated
+
+4. Dynamic form controls populated with database data
+
+5. Session/Application management demonstrated
+
+6. Record information to a log file
+
+7. Data validation using JavaScript on client side, and server side validation
+
+8. You should make your own decisions for anything not specified in this document
 
 ## 1. Documents (10) ##
 
