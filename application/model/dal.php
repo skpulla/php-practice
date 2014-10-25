@@ -44,7 +44,7 @@
 		/**
 		 * Get all products in the DB as an array of Product objects.
 		 */
-		public function getProducts() {
+		public function getAllProducts() {
 		    $stmt = $this->conn->prepare('SELECT * FROM products');
 		    $stmt->setFetchMode(PDO::FETCH_CLASS, 'Product');
 		    $stmt->execute();
@@ -56,10 +56,58 @@
 		 * Return value is still an array containing exactly one element.
 		 */
 		public function getProductById($id) {
-		    $stmt = $this->conn->prepare('SELECT * FROM products where id = :id');
+		    $stmt = $this->conn->prepare('SELECT * FROM products WHERE id = :id');
 		    $stmt->setFetchMode(PDO::FETCH_CLASS, 'Product');
-		    $stmt->execute(array('id' => $id));
+		    $stmt->bindParam(':id', $id);
+		    $stmt->execute();
 		    return $stmt->fetchAll();
+		}
+
+		/**
+		 * Add one product to the DB.
+		 * Return value of '1' indicates a success as exactly one row gets added.
+		 */
+		public function addProduct($product) {
+		    $stmt = $this->conn->prepare('INSERT INTO products VALUES(:name, :price)');
+		    $stmt->bindParam(':name', $product->name);
+		    $stmt->bindParam(':price', $product->price);
+		    $stmt->execute();
+		    return $stmt->rowCount();
+		}
+
+		/**
+		 * Update a product in the DB.
+		 * Return value of '1' indicates a success as exactly one row gets updated.
+		 */
+		public function updateProduct($product) {
+		    $stmt = $this->conn->prepare('UPDATE products SET name = :name, price = :price WHERE id = :id');
+		    $stmt->bindParam(':id', $product->id);
+		    $stmt->bindParam(':name', $product->name);
+		    $stmt->bindParam(':price', $product->price);
+		    $stmt->execute();
+		    return $stmt->rowCount();
+		}
+
+		/**
+		 * Delete a product in the DB.
+		 * Return value of '1' indicates a success as exactly one row gets deleted.
+		 */
+		public function deleteProduct($product) {
+			$stmt = $pdo->prepare('DELETE FROM products WHERE id = :id');
+			$stmt->bindParam(':id', $product->id);
+			$stmt->execute();
+		    return $stmt->rowCount();
+		}
+
+		/**
+		 * Delete a product in the DB.
+		 * Return value of '1' indicates a success as exactly one row gets deleted.
+		 */
+		public function deleteProductById($id) {
+			$stmt = $pdo->prepare('DELETE FROM products WHERE id = :id');
+			$stmt->bindParam(':id', $id);
+			$stmt->execute();
+		    return $stmt->rowCount();
 		}
 	}
 ?>
